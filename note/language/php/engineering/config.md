@@ -1,5 +1,5 @@
-# composer
-该文档包含PHP包管理系统Composer的使用方法
+# Composer config
+> 该文档包含PHP包管理系统Composer的配置文件
 
 ---
 
@@ -52,26 +52,3 @@
 ### 全局参数
 - help(-h):显示帮助信息
 - version(-v):显示当前版本信息
-
-
-### composer init
-初始化composer.json文件:
-
-### composer install
-读取当前目录`composer.json`文件，处理依赖关系，并安装到vendor目录下。
-
-- `--dev` 安装`require-dev`中列出的包
-- `--no-dev` 跳过`require-dev`中列出的包
-
-### composer update
-获取依赖的最新版本，如果是真对某几个的话，可以使用如下方法(支持通配符):  
-`composer update vendor/package vendor/*`
-
-### composer require
-添加新的依赖包到当前目录
-
-### composer search
-搜索依赖包
-
-### compoer dump-autoload
-重新注册自动读取文件
