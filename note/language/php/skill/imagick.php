@@ -22,52 +22,69 @@ $imgick->destroy();*/
 
 class Instagraph  
 {    
-    public $image = NULL;  
-    public $output = NULL;  
-    public $_prefix = 'IMG';  
-    private $_width = NULL;  
-    private $_height = NULL;  
-    private $_tmp = NULL;  
+    public $filename;  
+    public $new_filename;
+    private $_image;  
+    private $_width;  
+    private $_height;  
    
-    public static function factory($image, $output)  
+    public static function factory($filename, $new_filename)  
     {  
-        return new Instagraph($image, $output);  
+        return new Instagraph($filename, $new_filename);  
     }  
    
-    public function __construct($image, $output)  
+    public function __construct($filename, $new_filename)  
     {  
-        if(file_exists($image)) {
-            $this->image = $image;
-            $this->output = $output; 
+        if(file_exists($filename)) {
+            $image = new Imagick($filename);
+            $size = $image->getImageGeometry();
+            $this->_width = $size['width'];
+            $this->_height = $size['height'];
+            $this->_image = $image;
+            $this->filename = $filename;         
+            $this->new_filename = $new_filename; 
         } else {  
             throw new Exception('File not found. Aborting.');  
         }  
-    }  
-   
-    public function tempfile()  
-    {  
-        # copy original file and assign temporary name  
-        $this->_tmp = $this->_prefix.rand();  
-        copy($this->_image, $this->_tmp);  
-    }  
-   
+    }
+
+    // 添加边框
+    public function addBorder($color = 'black', $width = 20, $height = 0)
+    {
+        $height = $height ?: $width;
+        $this->_image->borderImage($color, $width, $height);
+    }
+
+    // 调整图片亮度，饱和度(色彩是否丰富)，色调(冷色还是暖色)
+    public function modulate($brightness, $saturation, $hue)
+    {
+        $this->_image->modulateImage($brightness, $saturation, $hue);
+    }
+
+    // 添加填充色彩
+    public function colorize($color, $opacity)
+    {
+        $this->_image->colorizeImage($color, $opacity, true);
+    }
+
+    // gamma矫正
+    public function gamma($gamma)
+    {
+        $this->_image->gammaImage($gamma, Imagick::CHANNEL_ALL);
+    }
+
     public function output()  
     {  
-        # rename working temporary file to output filename  
-        rename($this->_tmp, $this->_output);  
-    }  
+        $this->_image->writeImage($this->new_filename); 
+    }   
+
+    public function clear()
+    {
+        $this->_image->clear();
+        $this->_image->destroy();
+    }
    
-    public function execute($command)  
-    {  
-        # remove newlines and convert single quotes to double to prevent errors  
-        $command = str_replace(array("\n", "'"), array('', '"'), $command);  
-        $command = escapeshellcmd($command);  
-        # execute convert program  
-        exec($command);  
-    }  
-   
-    /** ACTIONS */  
-   
+    /** 待研究 */  
     public function colortone($input, $color, $level, $type = 0)  
     {  
         $args[0] = $level;  
@@ -80,11 +97,6 @@ class Instagraph
         ( -clone 0 -colorspace gray $negate )  
         -compose blend -define compose:args=$args[0],$args[1] -composite  
         {$input}");  
-    }  
-   
-    public function border($input, $color = 'black', $width = 20)  
-    {  
-        $this->execute("convert $input -bordercolor $color -border {$width}x{$width} $input");  
     }  
    
     public function frame($input, $frame)  
@@ -105,4 +117,12 @@ class Instagraph
         -compose multiply -flatten  
         {$input}");  
     }
-}  
+}
+// convert  -fill '#222b6d' -colorize 20 -gamma 0.5 -contrast -contrast
+$image = Instagraph::factory('./1.jpg', './2.jpg');
+$image->modulate(120, 10, 100);
+$image->colorize('#222b6d', 1);
+$image->gamma(0.5);
+$image->addBorder('white', 50);
+$image->output();
+$image->clear();
