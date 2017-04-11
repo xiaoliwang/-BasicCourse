@@ -42,6 +42,7 @@
 之后你可以登录[HTML](http://www.w3school.com.cn/html/html_basic.asp)和[CSS](http://www.w3school.com.cn/css/index.asp)，继续学习。以下是学习章节推荐：
 
 必修：
+
 1. HTML基础教程
 2. HTML表单
 3. HTML5
@@ -51,6 +52,7 @@
 7. CSS定位
 
 选修：
+
 1. HTML图形
 2. HTML媒体
 3. CSS选择器
