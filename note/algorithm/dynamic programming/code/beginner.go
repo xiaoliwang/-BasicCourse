@@ -1,5 +1,57 @@
 package dp
 
+// 方法1
+func RMinCoins(sum int, face_values []int) int{
+    if sum == 0 {
+        return 0
+    }
+
+    min := 1 << 62 - 1
+    for _, v := range face_values {
+        if sum == v {
+            return 1
+        } else if v < sum {
+            t_min := RMinCoins(sum - v, face_values) + 1
+            if t_min != 1 && t_min < min {
+                min = t_min
+            }
+        }
+    }
+    return min
+}
+
+// 方法2
+
+var min_coin = make(map[int]int)
+
+func RMinCoinsImp(sum int, face_values []int) int {
+  if sum == 0 {
+    return sum
+  }
+  
+  min, ok := min_coin[sum]
+
+  if ok {
+    return min
+  }
+  
+  min = 1 << 62 - 1
+  for _, v := range face_values {
+    if sum == v {
+      return 1
+    } else if v < sum {
+      t_min := RMinCoinsImp(sum - v, face_values) + 1
+      if t_min != 1 && t_min < min {
+        min = t_min
+      }
+    }
+  }
+  min_coin[sum] = min
+  return min
+}
+
+// 方法3
+
 func MinCoins(sum int, face_values []int)(min_coin int, min_coin_detail []int) {
   min_coins := make([]int, sum + 1)
   min_coin_details := make([][]int, sum + 1)

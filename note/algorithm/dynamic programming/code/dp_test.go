@@ -22,6 +22,12 @@ func TestRMinCoins(t *testing.T) {
     fmt.Println(min_coin)
 }
 
+func TestRMinCoinsImp(t *testing.T) {
+    prices := []int { 3, 7, 11, 13 }
+    min_coin := RMinCoinsImp(100, prices)
+    fmt.Println(min_coin)
+}
+
 func TestLis(t *testing.T) {
     nums := []int{5, 3, 4, 8, 6, 7}
     llen, path := Lis(nums)
