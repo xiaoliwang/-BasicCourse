@@ -4,35 +4,31 @@ import (
     "testing"
     "reflect"
     "sort"
-    "fmt"
+    _"fmt"
 )
 
 func TestMinCoins(t *testing.T) {
     prices := []int { 3, 7, 11, 13 }
-    minimum_number, map_price := MinCoins(100, prices)
+    for i := 1; i < 500; i++ {
+        min_coin1 := RMinCoinsImp(i, prices)
+        min_coin2, _ := MinCoins(i, prices)
+        if min_coin1 != min_coin2 {
+            t.Errorf("wrong min coins")
+        }
+    }
+    
+    min_coin2, map_price := MinCoins(50, prices)
     sort.Ints(map_price)
-    if minimum_number != 8 || !reflect.DeepEqual(map_price, []int{11,11, 13, 13, 13, 13, 13, 13}) {
+    if min_coin2 != 4 || !reflect.DeepEqual(map_price, []int{11, 13, 13, 13}) {
         t.Errorf("wrong min coins")
     }
 }
 
-func TestRMinCoins(t *testing.T) {
-    prices := []int { 3, 7, 11, 13 }
-    min_coin := RMinCoins(100, prices)
-    fmt.Println(min_coin)
-}
-
-func TestRMinCoinsImp(t *testing.T) {
-    prices := []int { 3, 7, 11, 13 }
-    min_coin := RMinCoinsImp(100, prices)
-    fmt.Println(min_coin)
-}
-
 func TestLis(t *testing.T) {
-    nums := []int{5, 3, 4, 8, 6, 7}
-    llen, path := Lis(nums)
-    sort.Ints(path)
-    if llen != 4 || !reflect.DeepEqual(path, []int{1, 2, 4, 5}) {
+    nums := []int{3, 4, 5, 2, 3, 4, 5, 6, 1, 2, 3, 2, 1}
+    llen1, path := Lis(nums)
+    llen2 := RLis(nums)
+    if llen1 != llen2 || !reflect.DeepEqual(path, []int{7, 6, 5, 4, 3}) {
         t.Errorf("lis works wrong")
     }
 }
