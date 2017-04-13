@@ -4,7 +4,7 @@ import (
     "testing"
     "reflect"
     "sort"
-    _"fmt"
+    "fmt"
 )
 
 func TestMinCoins(t *testing.T) {
@@ -33,7 +33,7 @@ func TestLis(t *testing.T) {
     }
 }
 
-func Test2D(t *testing.T) {
+func TestMostApples(t *testing.T) {
     apple_matrix := [][]int{
         {1, 2, 3, 4, 5},
         {1, 2, 2, 4, 4},
@@ -41,8 +41,13 @@ func Test2D(t *testing.T) {
         {1, 2, 3, 4, 5},
     }
 
-    max_num := BiDimensional(apple_matrix)
+    max_num := MostApples(apple_matrix)
     if max_num != 29 {
          t.Errorf("2d works wrong")
     }
+}
+
+func TestCountingBits(t *testing.T) {
+    nums := countBits(5)
+    fmt.Println(nums)
 }
