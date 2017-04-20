@@ -1,18 +1,20 @@
 # 动态规划
 
-> 动态规划是一类算法问题。它的核心思想是将一个复杂问题化简成一系列简单问题。再根据各简单问题的解，进行比较合并，最终得出原问题的解。
+> 动态规划（dynamioc programming）是一种非常常见的算法类型。它的核心思想是将一个复杂问题分解成不同部分的子问题，计算并保存各子问题的解，再合并子问题的解以得到原问题的解。
 >
-> 本文参考了**TopCoder**上的一篇文章[Dynamic Programming – From Novice to Advanced](https://www.topcoder.com/community/data-science/data-science-tutorials/dynamic-programming-from-novice-to-advanced/)
+> 本文主要参考了 **TopCoder** 上的一篇文章[Dynamic Programming – From Novice to Advanced](https://www.topcoder.com/community/data-science/data-science-tutorials/dynamic-programming-from-novice-to-advanced/)
 >
 > 本文所有的示例均使用 golang 编写，如有疑问，可以参考[官网](https://golang.org/)
 >
-> 全文分为四个部分，入门，中级，高级以及附录。前面三个部分主要从浅入深介绍动态规划的解题思路。附录则主要介绍文章中的一些基础知识。希望本文能对大家有所帮助。
+> 全文分为三大部分，知识梳理，例题详解以及附录。前两部分并没有先后顺序，应该交叉阅读。附录中则有文章中的一些基础知识介绍。希望本文能对大家有所帮助。
 
 
 
 ## 知识梳理
 
-### 入门
+### 认识状态
+
+算法是对于某一类问题的解决方法。动态规划是算法，所以我们首先要知道它解决的是**哪一类问题**。
 
 首先，我们来看一个简单的问题
 
