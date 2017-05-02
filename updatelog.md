@@ -4,6 +4,15 @@
 
 [TOC]
 
+## 2017年 5月 2日
+
+- 创建博客分类
+  - 将动态规划博文搬移到博客分类
+  - 添加博客小黄鸭
+  - 添加博客体检
+
+
+
 ## 2017年 4月 13日
 
 - 更新动态规划笔记 note/algorithm/dynamic programming/Dynamic Programming.md
